@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+*.wgt
+*.zip
+*.pem
+*.key
+*.p12
+*.pfx
+*credentials*.json
+*service-account*.json
+.DS_Store
+npm-debug.log*

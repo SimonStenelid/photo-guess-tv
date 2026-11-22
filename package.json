@@ -1,0 +1,19 @@
+{
+  "name": "photo-guess-tv",
+  "version": "0.4.2",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "build:wgt": "node tizen/build.js",
+    "test": "node --test",
+    "dev": "node server.js --preview"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "9.4.1",
+    "@google-cloud/storage": "9.0.0"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  }
+}

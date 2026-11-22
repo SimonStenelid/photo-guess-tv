@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sticker Party · Sound check</title>
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="/audio.js"></script>
+  <style>
+    .sound-check { max-width: 39rem; margin: 3vh auto; padding: 1.5rem 1.6rem; min-height: 0; }
+    .sound-check header { margin-bottom: 1.25rem; }
+    .sound-check h1 { margin-top: 1rem; }
+    .sound-check h2 { font-size: 1rem; margin: 1.3rem 0 .6rem; }
+    .audition-controls { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .sound-check #game-sound { margin: 0; }
+    .sound-check [role="status"] { min-height: 1.5rem; margin-top: 1rem; }
+    @media (max-width: 650px) { .sound-check { margin: 1rem; } }
+  </style>
+</head>
+<body>
+  <main class="tv-shell sound-check">
+    <header>
+      <a href="/preview">Game preview</a>
+      <h1>Sound check</h1>
+      <p class="lede">Listen to the music and effects together, or try them one at a time.</p>
+    </header>
+    <div class="audition-controls">
+      <button type="button" id="play-loop" class="primary" aria-pressed="false">Play music</button>
+      <button type="button" id="game-sound">Enable sound</button>
+    </div>
+    <h2>Sound effects</h2>
+    <div class="audition-controls">
+      <button type="button" data-cue="join">Player joins</button>
+      <button type="button" data-cue="round">Round starts</button>
+      <button type="button" data-cue="vote">Vote lands</button>
+      <button type="button" data-cue="countdown">Last three seconds</button>
+      <button type="button" data-cue="reveal">Answer reveal</button>
+      <button type="button" data-cue="finish">Final scores</button>
+      <button type="button" data-cue="stop">Game stops</button>
+    </div>
+    <p id="audio-status" class="lede" role="status"></p>
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const audio = createStickerAudio(document.getElementById('game-sound'));
+      const loopButton = document.getElementById('play-loop');
+      const status = document.getElementById('audio-status');
+      let playing = false;
+      function setLoop(active) {
+        playing = active;
+        audio.update({ host: true, phase: active ? 'lobby' : 'setup', gameId: 'sound-check', players: [] });
+        loopButton.textContent = active ? 'Pause music' : 'Play music';
+        loopButton.setAttribute('aria-pressed', String(active));
+      }
+      loopButton.onclick = async () => {
+        if (playing) {
+          setLoop(false);
+          return;
+        }
+        if (await audio.unlock()) {
+          setLoop(true);
+          status.textContent = '';
+        } else {
+          status.textContent = 'Enable sound to listen.';
+        }
+      };
+      for (const button of document.querySelectorAll('[data-cue]')) {
+        button.onclick = async () => {
+          if (!(await audio.unlock())) {
+            status.textContent = 'Enable sound to listen.';
+            return;
+          }
+          status.textContent = button.textContent;
+          const cue = button.dataset.cue;
+          if (cue === 'countdown') {
+            audio.play('tick');
+            audio.play('tick', 1);
+            audio.play('lastTick', 2);
+          } else {
+            audio.play(cue);
+          }
+        };
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join Photo Guess TV</title>
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="/common.js"></script>
+  <script defer src="/mascot.js"></script>
+  <script defer src="/phone.js"></script>
+</head>
+<body class="phone">
+  <main class="phone-shell">
+    <header class="topline">
+      <span class="brand">Photo Guess <small>TV</small></span>
+      <span id="stage">Join</span>
+    </header>
+    <section class="phone-panel" aria-labelledby="title">
+      <div id="phone-mascot" class="phone-mascot"></div>
+      <h1 id="title">Join the game</h1>
+      <p id="instruction">Connecting…</p>
+      <p id="round-result" class="round-result" role="status" hidden></p>
+      <form id="join-form" hidden>
+        <label for="name">Your name</label>
+        <input id="name" name="name" autocomplete="given-name" maxlength="24" required>
+        <button type="submit" class="primary">Join game</button>
+      </form>
+      <form id="upload-form" hidden>
+        <label for="photos">Choose photos</label>
+        <input id="photos" type="file" accept="image/*" multiple required>
+        <button type="submit" class="primary">Share photos</button>
+      </form>
+      <div id="choices" class="choices" hidden></div>
+      <p id="notice" class="notice" role="status"></p>
+    </section>
+  </main>
+</body>
+</html>

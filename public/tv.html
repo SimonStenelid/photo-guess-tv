@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo Guess TV</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="common.js"></script>
+  <script defer src="mascot.js"></script>
+  <script defer src="audio.js"></script>
+  <script defer src="tv.js"></script>
+</head>
+<body class="tv">
+  <main class="tv-shell">
+    <header class="topline">
+      <span class="brand">Photo Guess <small>TV</small></span>
+      <span id="stage">Lobby</span>
+    </header>
+    <section id="screen" class="tv-screen" aria-live="polite">
+      <h1>Connecting…</h1>
+    </section>
+    <footer class="tv-footer">
+      <p id="notice" class="notice" role="status"></p>
+      <button id="game-sound" type="button" hidden>Enable sound</button>
+      <button id="server-settings" type="button" hidden>Server address</button>
+      <button id="stop-game" type="button" hidden>Stop game</button>
+      <div id="stop-confirmation" role="group" aria-label="Stop game?" hidden>
+        <p>Stop this game and show the scores so far?</p>
+        <button id="keep-playing" type="button">Keep playing</button>
+        <button id="confirm-stop" type="button" class="stop-confirm">Stop and show scores</button>
+      </div>
+      <div id="lobby-action"><button id="advance" class="primary" hidden autofocus></button></div>
+      <form id="host-form" hidden>
+        <label for="host-code">Host code</label>
+        <input id="host-code" type="password" autocomplete="off" autocapitalize="off" maxlength="64" required>
+        <button type="submit">Unlock controls</button>
+      </form>
+      <form id="server-form" hidden>
+        <label for="server-address">TV screen address</label>
+        <input id="server-address" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+        <button type="submit">Connect</button>
+      </form>
+    </footer>
+  </main>
+</body>
+</html>

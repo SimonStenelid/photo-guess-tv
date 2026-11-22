@@ -1,0 +1,31 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build:wgt
+        env:
+          PUBLIC_ORIGIN: https://photo-guess-tv.example.com
+      - run: unzip -t PhotoGuessTV-Cloud.wgt
+      - name: Build and smoke-test the container
+        run: |
+          docker build -t photo-guess-tv:ci .
+          docker run --rm --detach --name photo-guess-tv-ci --publish 127.0.0.1:3000:3000 photo-guess-tv:ci
+          trap 'docker stop photo-guess-tv-ci' EXIT
+          curl --fail --silent --show-error --retry 8 --retry-connrefused http://127.0.0.1:3000/tv | grep -q 'Photo Guess TV'

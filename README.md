@@ -22,6 +22,8 @@ Upload photos from your phone, then play PhotoGuesser with friends on your Samsu
 
 ## Get it running
 
+Use [Apps2Samsung](docs/local.md#install-on-a-samsung-tizen-tv) to install PhotoGuesser as a Samsung TV app and launch it right from your TV.
+
 ### Host on your Wi-Fi
 
 Install [Node.js 22 or newer](https://nodejs.org/en/download), then run:

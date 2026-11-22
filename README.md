@@ -1,6 +1,8 @@
-# Photo Guess TV
+# Play PhotoGuesser on your Samsung TV.
 
-**Whose camera roll did that come from?** Put a mystery photo on the TV and see which of your friends can claim credit for the world's saddest birthday cake. Photo Guess TV turns the photos everyone already has into a living-room guessing game.
+Upload photos from your phone, then play PhotoGuesser with friends on your Samsung TV and see whose camera roll gets the biggest laugh.
+
+![Five friends laugh and vote on their phones while PhotoGuesser shows a cat in a shopping tote on the TV.](docs/images/photoguesser-game-night.jpg)
 
 [![Checks](https://github.com/SimonStenelid/photo-guess-tv/actions/workflows/ci.yml/badge.svg)](https://github.com/SimonStenelid/photo-guess-tv/actions/workflows/ci.yml)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)

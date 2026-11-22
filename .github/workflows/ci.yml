@@ -27,5 +27,6 @@ jobs:
         run: |
           docker build -t photo-guess-tv:ci .
           docker run --rm --detach --name photo-guess-tv-ci --publish 127.0.0.1:3000:3000 photo-guess-tv:ci
-          trap 'docker stop photo-guess-tv-ci' EXIT
-          curl --fail --silent --show-error --retry 8 --retry-connrefused http://127.0.0.1:3000/tv | grep -q 'Photo Guess TV'
+          trap 'docker stop --time 1 photo-guess-tv-ci' EXIT
+          page="$(curl --fail --silent --show-error --max-time 3 --retry 15 --retry-delay 1 --retry-all-errors http://127.0.0.1:3000/tv)"
+          grep -q 'Photo Guess TV' <<< "$page"
